@@ -1,11 +1,15 @@
 const express = require("express");
 const db = require("../config/db");
+const routes = require("./routes");
+
+const bodyParser = require("body-parser");
 
 const app = express();
 
-app.get("/", (req, res) => {
-    res.send("Funcionando");
-});
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+app.use(routes);
 
 const PORT = 8081;
 
