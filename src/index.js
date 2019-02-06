@@ -2,6 +2,8 @@ const express = require("express");
 const db = require("../config/db");
 const routes = require("./routes");
 
+const cors  = require("cors"); // able if another aplication can or not acess our aplication
+
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -15,6 +17,7 @@ app.use((req, res, next) => {
     return next(); // continue the next requisitions
 });
 
+app.use(cors()); 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -22,6 +25,6 @@ app.use(routes);
 
 const PORT = 8081;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is working on port ${PORT}`);
 })
