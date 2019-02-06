@@ -10,6 +10,8 @@ module.exports = {
     async store(req,res){
         const tweet = await Tweet.create(req.body);
 
+        req.io.emit('tweet', tweet); // everybody who is connect in all aplication will receive this event with io 
+
         return res.json(tweet);
     }
 } 

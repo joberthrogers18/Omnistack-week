@@ -8,6 +8,8 @@ module.exports = {
 
         await tweet.save();
 
+        req.io.emit("like", tweet); // everybody who is connect in all aplication will receive this event with io
+
         res.json(tweet);
     }
 }
