@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import './Timeline.css';
 import TwitterIcon from '../twitter.svg';
 
+//socket.io from part of client
+import socket from 'socket.io-client';
+
 //import the api connection with axios package
 import api from '../services/api';
 
@@ -15,6 +18,8 @@ export default class Timeline extends Component {
   };
 
   async componentDidMount(){
+    this.subscribeToEvents();
+
     const response = await api.get('tweets');
 
     this.setState({tweets: response.data});
@@ -35,6 +40,20 @@ export default class Timeline extends Component {
     await api.post('tweets', {content, author});
 
     this.setState({ newTweet: ''});
+  }
+
+  subscribeToEvents = () => { //function to encapsulate the real time part comes to api  
+    const io = socket('http://localhost:8081')
+
+    io.on('tweet', data => {
+      this.setState({tweets : [data, ...this.state.tweets]}); // adding the tweet in start of  array and use spread to add the old
+    });
+
+    io.on('like', data => {
+      this.setState({tweets: this.state.tweets.map(tweet => 
+        tweet._id === data._id ? data : tweet  // anothe notation from "if"
+      )});
+    });
   }
 
   render() {
