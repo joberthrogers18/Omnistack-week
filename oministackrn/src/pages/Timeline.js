@@ -12,10 +12,10 @@ import Tweet from '../components/Tweet';
 // import styles from './styles';
 
 export default class Timeline extends Component {
-    static navigationOptions = {
+    static navigationOptions =  ({ navigation }) => ({ // transform the static variable in function where return an object pass navigation
     title: 'Timeline',
         headerRight: (
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => navigation.navigate('New')}>
                 <Icon style={{marginRight: 20}}
                     name="add-circle-outline" // icon in material Icons
                     size={24}
@@ -23,7 +23,7 @@ export default class Timeline extends Component {
                 />
             </TouchableOpacity>
         )
-    };
+    });
 
     state = {
         tweets: []
