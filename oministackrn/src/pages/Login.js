@@ -18,7 +18,7 @@ export default class Login extends Component {
         const username = await AsyncStorage.getItem('@Oministack:username');
 
         if(username){
-            this.props.navigation.navigate('Timeline'); //if user already input his name and it already sabe in database, go to timeline
+            this.props.navigation.navigate('App'); //if user already input his name and it already sabe in database, go to timeline
         }
     }
 
@@ -33,7 +33,7 @@ export default class Login extends Component {
 
         await AsyncStorage.setItem('@Oministack:username', username); // save in sqlite in our aplication, db local
 
-        this.props.navigation.navigate('Timeline'); // Redirect to route
+        this.props.navigation.navigate('App'); // Redirect to route
     };
 
   render() {

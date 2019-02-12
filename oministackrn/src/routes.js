@@ -1,12 +1,14 @@
-import { createSwitchNavigator, createAppContainer} from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator, createAppContainer} from 'react-navigation';
 
 import Login from './pages/Login';
 import Timeline from './pages/Timeline';
 
-const Routes = createAppContainer( //function wrapper all routes of our application
+const Routes = createAppContainer( //function wrapper all routes of our application / no visual efect
     createSwitchNavigator({
          Login,
-         Timeline,
+         App: createStackNavigator({
+            Timeline
+         })
     })
 ); 
 
