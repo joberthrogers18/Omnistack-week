@@ -8,7 +8,7 @@ const cors = require('cors');
 
 //configuração de web socket
 const server = require('http').Server(app);
-const io = require('socker.io')(server);
+const io = require('socket.io')(server);
 // mandar io por middlewares
 app.use((req, res, next) => {
     req.io = io;
