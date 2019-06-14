@@ -15,7 +15,7 @@ app.use((req, res, next) => {
     next();
 })
 
-const PORT = 3333;
+const PORT = process.env.PORT;
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: true}));
@@ -25,7 +25,7 @@ app.use(require("./routes"));
 // arquivos estaticos, rotas para isso
 app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads', 'resized')));
 
-server.listen(PORT, () => {
+server.listen(PORT || 3333, () => {
     console.log(`The server is online in port: ${PORT}`);
 })
 

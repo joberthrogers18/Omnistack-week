@@ -7,4 +7,7 @@ RUN npm install
 
 COPY . /usr/src/app
 
-EXPOSE 3333
+ENV PORT 3333
+ENV TESTE app
+
+EXPOSE $PORT
