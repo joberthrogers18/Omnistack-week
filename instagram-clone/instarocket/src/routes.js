@@ -17,6 +17,7 @@ export default createAppContainer(
       New
     },
     {
+      initialRouteName: "New",
       defaultNavigationOptions: {
         headerTitle: (
           <Image
