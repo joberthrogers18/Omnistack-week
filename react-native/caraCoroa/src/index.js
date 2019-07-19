@@ -13,7 +13,7 @@ const Routes = createAppContainer(
       defaultNavigationOptions: {
         title: "Cara e coroa",
         headerStyle: {
-          backgroundColor: "#E52A6F"
+          backgroundColor: "#6BBAA7"
         },
         headerTitleStyle: {
           color: "#FFF",

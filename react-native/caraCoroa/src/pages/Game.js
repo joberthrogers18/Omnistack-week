@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   buttonDisable: {
     opacity: 0.5,
     width: 200,
-    backgroundColor: "#E52A6F",
+    backgroundColor: "#FBA100",
     height: 50,
     borderRadius: 10,
     borderWidth: 1,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   buttonEnable: {
     opacity: 1,
     width: 200,
-    backgroundColor: "#E52A6F",
+    backgroundColor: "#FBA100",
     height: 50,
     borderRadius: 10,
     borderWidth: 1,
