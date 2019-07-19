@@ -30,7 +30,7 @@ class Game extends Component {
   };
 
   handleButton = async () => {
-    await this.sleep(1000);
+    await this.sleep(1500);
 
     function shuffle(array) {
       array.sort(() => Math.random() - 0.5);
@@ -54,7 +54,7 @@ class Game extends Component {
           <ActivityIndicator
             size={250}
             style={styles.loading}
-            color="#E52A6F"
+            color="#FBA100"
           />
         );
       default:
@@ -118,9 +118,9 @@ const styles = StyleSheet.create({
 
   buttonDisable: {
     opacity: 0.5,
-    width: 200,
+    width: 300,
     backgroundColor: "#FBA100",
-    height: 50,
+    height: 60,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#fff",
@@ -129,9 +129,9 @@ const styles = StyleSheet.create({
 
   buttonEnable: {
     opacity: 1,
-    width: 200,
+    width: 300,
     backgroundColor: "#FBA100",
-    height: 50,
+    height: 60,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#fff",

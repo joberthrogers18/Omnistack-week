@@ -21,7 +21,8 @@ const Routes = createAppContainer(
           fontSize: 30,
           textAlign: "center",
           flex: 1
-        }
+        },
+        headerTintColor: "#fff"
       },
       initialRouteName: "Menu"
     },
