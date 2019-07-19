@@ -11,7 +11,17 @@ const Routes = createAppContainer(
     },
     {
       defaultNavigationOptions: {
-        title: "Cara e coroa"
+        title: "Cara e coroa",
+        headerStyle: {
+          backgroundColor: "#E52A6F"
+        },
+        headerTitleStyle: {
+          color: "#FFF",
+          fontWeight: "bold",
+          fontSize: 30,
+          textAlign: "center",
+          flex: 1
+        }
       }
     },
     "modal"
