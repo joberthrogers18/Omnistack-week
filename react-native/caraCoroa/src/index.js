@@ -22,7 +22,8 @@ const Routes = createAppContainer(
           textAlign: "center",
           flex: 1
         }
-      }
+      },
+      initialRouteName: "Menu"
     },
     "modal"
   )
