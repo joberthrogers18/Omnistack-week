@@ -1,8 +1,8 @@
-FROM node:alpine
-WORKDIR /app
-COPY package.json /app 
-RUN yarn install
-COPY . /app
-CMD ["yarn", "start"]
-EXPOSE ${PORT}
+FROM node:latest
+WORKDIR /usr/src/app
+COPY package*.json ./ 
+RUN npm install
+COPY . .
+EXPOSE 3333
+CMD [ "node", "index.js" ]
 
