@@ -20,7 +20,9 @@ const FileSchema = new Schema({
 // Não vai para a base de dados, apenas virtual, é necessário
 // colocar as opções abaixo do timestamp para que permita essa função de virtuals
 FileSchema.virtual('url').get(function () {
-    return `http://localhost:3333/files/${encodeURIComponent(this.path)}`;
+    const url = process.env.URL || 'http://localhost:3333'
+
+    return `${url}/files/${encodeURIComponent(this.path)}`;
 })
 
 module.exports = mongoose.model('File', FileSchema);
