@@ -2,7 +2,7 @@ const Box = require('../models/Box');
 
 class BoxController {
     store(req, res){
-        Box.create({ title: req.body.title})
+        Box.create(req.body)
             .then(() => {
                 res.status(200).json({msg: 'Create sucessfuly!'});
             }).catch(error => {
