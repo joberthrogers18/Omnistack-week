@@ -23,6 +23,21 @@ class BoxController {
             })
             
     }
+
+    showUnique(req, res){
+        Box.findById(req.params.id).populate({
+            path: 'files',
+            options: { sort: { createdAt: -1 } }
+        }).then((error,box) => {
+                if(error){
+                   return res.status(500).json(error);
+                }
+
+                return res.status(200).json(box);
+            }).catch(error => {
+                return res.status(500).json(error);
+            });
+    }
 }
 
 module.exports = new BoxController();

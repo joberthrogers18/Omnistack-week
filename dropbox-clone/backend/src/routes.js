@@ -9,8 +9,9 @@ const FileController = require('./controllers/FileController');
 
 route.get("/boxes", BoxController.show);
 route.post("/boxes", BoxController.store);
+route.get("/boxes/:id", BoxController.showUnique);
 // No upload pode ser single ou array caso queira dar mais upload
 // 'file' é o nome do atributo do post que o multer irá pegar para fazer o upload do arquivo
-route.post("/files", multer(multerConfig).single('file') ,FileController.store)
+route.post("/boxes/:id/files", multer(multerConfig).single('file') ,FileController.store)
 
 module.exports = route;
