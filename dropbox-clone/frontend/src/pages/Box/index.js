@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { distanceInWords } from 'date-fns';
 import pt from 'date-fns/locale/pt'
 import Dropzone from 'react-dropzone';
+import socket from 'socket.io-client'; 
 
 import './styles.css';
 import logo from '../../assets/logo.svg';
@@ -19,6 +20,8 @@ export default class Box extends Component {
     }
 
     componentDidMount = async () => {
+        this.subscribeToNewFiles();
+
         const id_box = this.props.match.params.id;
 
         await axios.get(`boxes/${id_box}`)
@@ -28,6 +31,19 @@ export default class Box extends Component {
             .catch(error => {
                 toast.error(`Erro ao carregar informações sobre a box: ${error}`);
             })
+    }
+
+    subscribeToNewFiles = () => {
+        const id_box = this.props.match.params.id;
+        const io = socket('https://dropbox-clone-oministack.herokuapp.com/');
+
+        // Quando emiti a mensage; 'connectRoom' room ele vai colocar o novo
+        // host dentro do id da box
+        io.emit('connectRoom', id_box);
+
+        io.on('file', data => {
+            this.setState({ box: {...this.state.box, files: [ data, ...this.state.box.files] }});
+        })
     }
 
     handleUpload = (files) => {
