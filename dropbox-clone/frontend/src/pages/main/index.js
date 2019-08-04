@@ -26,6 +26,9 @@ export default class Main extends Component {
         }).then((response) => {
             toast.success("Box criado com sucesso");
             console.log(response.data);
+
+            //Mudar de rota
+            this.props.history.push(`/box/${response.data._id}`);
         }).catch(error => {
             return toast.error(`Error ao criar um box: ${error}`);
         });
