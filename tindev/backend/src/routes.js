@@ -9,7 +9,7 @@ route.get('/', (request, response) => {
 });
 
 route.get('/devs', DevController.index);
-route.post('/', DevController.store );
+route.post('/devs', DevController.store );
 route.post('/dev/:devId/likes', LikeController.store);
 route.post('/dev/:devId/dislikes', DislikeController.store);
 
