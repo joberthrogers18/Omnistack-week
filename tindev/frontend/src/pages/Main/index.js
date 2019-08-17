@@ -29,32 +29,65 @@ const Main = ({ match }) => {
     }, [match.params.id])
 
     const renderDevs = () => {
-        return devs.map(dev => (
-            <li key={dev._id} >
-                <img src={dev.avatar} alt={dev.name}/>
-                <footer>
-                    <strong>{dev.name}</strong>
-                    <p>{dev.bio}</p>
-                </footer>
 
-                <div className="buttons">
-                    <button type="button">
-                        <img src={like} alt="Like"/>
-                    </button>
-                    <button type="button">
-                        <img src={dislike} alt="Dislike"/>
-                    </button>
+        if(devs.length !== 0 ){
+            return ( 
+                <ul>
+                    { devs.map(dev => (
+                        <li key={dev._id} >
+                            <img src={dev.avatar} alt={dev.name}/>
+                            <footer>
+                                <strong>{dev.name}</strong>
+                                <p>{dev.bio}</p>
+                            </footer>
+            
+                            <div className="buttons">
+                                <button type="button" onClick={() => handleLike(dev._id)}>
+                                    <img src={like} alt="Like"/>
+                                </button>
+                                <button type="button" onClick={() => handleDislike(dev._id)}>
+                                    <img src={dislike} alt="Dislike"/>
+                                </button>
+                            </div>
+                        </li>
+                    )) } 
+                </ul>
+            );
+        } else {
+            return (
+                <div className="empty">
+                    Não há mais Devs :( 
                 </div>
-            </li>
-        ));
+            )
+        }
+    }
+
+    const handleLike = async (dev_id) => {
+        console.log('teste');
+        await api.post(`dev/${dev_id}/likes`, null, {
+            headers: {
+                user: match.params.id
+            }
+        });
+
+        setDevs(devs.filter(dev => dev._id !== dev_id));
+    }
+
+    const handleDislike = async (dev_id) => {
+        await api.post(`dev/${dev_id}/dislikes`, null, {
+            headers: {
+                user: match.params.id
+            }
+        });
+
+
+        setDevs(devs.filter(dev => dev._id !== dev_id));
     }
 
     return (
         <div className="main-container" >
             <img src={logo} alt="Tindev" />
-            <ul>
-                {renderDevs()}
-            </ul>
+            {renderDevs()}
         </div>
     )
 }
