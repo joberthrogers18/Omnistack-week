@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import  { Link } from 'react-router-dom';
 import './style.css';
 
 import api from '../../services/api';
@@ -86,7 +87,9 @@ const Main = ({ match }) => {
 
     return (
         <div className="main-container" >
-            <img src={logo} alt="Tindev" />
+            <Link to="/" >
+                <img src={logo} alt="Tindev" />
+            </Link>
             {renderDevs()}
         </div>
     )
