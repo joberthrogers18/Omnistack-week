@@ -35,24 +35,36 @@ export default function Main({navigation}) {
     loadUsers();
   }, [id]);
 
-  const handleLike = async dev_id => {
-    await api.post(`dev/${dev_id}/likes`, null, {
-      headers: {
-        user: id,
-      },
-    });
+  const handleLike = async () => {
+    const [current_dev, ...rest] = devs;
 
-    setDevs(devs.filter(dev => dev._id !== dev_id));
+    try {
+      await api.post(`dev/${current_dev._id}/likes`, null, {
+        headers: {
+          user: id,
+        },
+      });
+    } catch (e) {
+      console.log(`Não foi possível dar like: ${e}`);
+    }
+
+    setDevs(rest);
   };
 
-  const handleDislike = async dev_id => {
-    await api.post(`dev/${dev_id}/dislikes`, null, {
-      headers: {
-        user: id,
-      },
-    });
+  const handleDislike = async () => {
+    const [current_dev, ...rest] = devs;
 
-    setDevs(devs.filter(dev => dev._id !== dev_id));
+    try {
+      await api.post(`dev/${current_dev._id}/dislikes`, null, {
+        headers: {
+          user: id,
+        },
+      });
+    } catch (e) {
+      console.log(`Não foi possível dar dislike: ${e}`);
+    }
+
+    setDevs(rest);
   };
 
   async function handleLogout() {
@@ -88,10 +100,10 @@ export default function Main({navigation}) {
          )}
       </View>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleDislike}>
           <Image source={dislike} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleLike}>
           <Image source={like} />
         </TouchableOpacity>
       </View>
