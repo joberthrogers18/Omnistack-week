@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   View,
   Image,
@@ -8,27 +9,83 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import api from '../services/api';
+
 import logo from '../assets/logo.png';
 import like from '../assets/like.png';
 import dislike from '../assets/dislike.png';
 
-export default function Main() {
+export default function Main({navigation}) {
+  const id = navigation.getParam('user');
+  // seria o state, mas a primeira eh a variavel e a segunda a função para atualizar esse estado
+  const [devs, setDevs] = useState([]);
+
+  // React hooks
+  useEffect(() => {
+    async function loadUsers() {
+      const response = await api.get('/devs', {
+        headers: {
+          user: id,
+        },
+      });
+
+      setDevs(response.data);
+    }
+
+    loadUsers();
+  }, [id]);
+
+  const handleLike = async dev_id => {
+    await api.post(`dev/${dev_id}/likes`, null, {
+      headers: {
+        user: id,
+      },
+    });
+
+    setDevs(devs.filter(dev => dev._id !== dev_id));
+  };
+
+  const handleDislike = async dev_id => {
+    await api.post(`dev/${dev_id}/dislikes`, null, {
+      headers: {
+        user: id,
+      },
+    });
+
+    setDevs(devs.filter(dev => dev._id !== dev_id));
+  };
+
+  async function handleLogout() {
+    await AsyncStorage.clear();
+
+    navigation.navigate('Login');
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <Image source={logo} style={styles.logo}/>
+      <TouchableOpacity onPress={handleLogout}>
+        <Image source={logo} style={styles.logo} onPress={handleLogout}/>
+      </TouchableOpacity>
       <View style={styles.cardContainer}>
-        <View style={[styles.card, {zIndex: 3}]}>
-          <Image
-            style={styles.avatar}
-            source={{
-              uri: 'https://avatars2.githubusercontent.com/u/19327076?v=4',
-            }}
-          />
-          <View style={styles.footer}>
-            <Text style={styles.name}>Jobs</Text>
-            <Text style={styles.bio} numberOfLines={3}>Loren ipsum</Text>
-          </View>
-        </View>
+        {devs.length === 0 ? (
+          <Text style={styles.empty}>Acabou :(</Text>
+          )
+          : (
+            devs.map((dev, index) => (
+              <View key={dev._id} style={[styles.card, {zIndex: devs.length - index}]}>
+                <Image
+                  style={styles.avatar}
+                  source={{
+                    uri: dev.avatar,
+                  }}
+                />
+                <View style={styles.footer}>
+                  <Text style={styles.name}>{dev.name}</Text>
+                  <Text style={styles.bio} numberOfLines={3}>{dev.bio}</Text>
+                </View>
+              </View>
+            ))
+         )}
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.button}>
@@ -52,6 +109,13 @@ const styles = StyleSheet.create({
 
   logo: {
     marginTop: 30,
+  },
+
+  empty: {
+    alignSelf: 'center',
+    color: '#999',
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 
   cardContainer: {
