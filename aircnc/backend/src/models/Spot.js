@@ -10,8 +10,7 @@ const SpotSchema = new mongoose.Schema({
     },
     techs: [String], 
     price:{
-        type: Number,
-        required: true
+        type: Number
     }, 
     user: {
         type: mongoose.Schema.Types.ObjectId,
