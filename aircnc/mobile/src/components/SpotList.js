@@ -7,10 +7,14 @@ import {
     TouchableOpacity, 
     Image 
 } from 'react-native';
+// não existe esse componente como tela, logo essa propriedade do react navigation
+// pra adicionar pra cada componente que não seja uma página
+import { withNavigation } from 'react-navigation';;
 
 import api from '../services/api';
 
-export default function SpotList({ tech }){
+// com o withNavigation o navigation dos props é habilitado
+function SpotList({ tech, navigation }){
     
     const [spots, setSpots] = useState([]);
 
@@ -27,6 +31,10 @@ export default function SpotList({ tech }){
         loadSpots();
 
     }, []);
+
+    function handleNavigate(){
+        navigation.navigate('Book');
+    }
     
     return (
         <View style={styles.container}>
@@ -43,7 +51,7 @@ export default function SpotList({ tech }){
                         <Image style={styles.thumbnail} source={{ uri: item.thumbnail_url }} />
                         <Text style={styles.company}>{item.company}</Text>
                         <Text style={styles.price}>{item.price ? `R$${item.price}/dia` : `GRATUITO`}</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => console.log(item.thumbnail_url)}>
+                        <TouchableOpacity style={styles.button} onPress={handleNavigate}>
                             <Text style={styles.buttonText}>Solicitar Reservar</Text>
                         </TouchableOpacity>
                     </View>
@@ -107,3 +115,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
     }
 });
+
+// agora tem acesso ao navigation como uma pagina normal
+export default withNavigation(SpotList);
