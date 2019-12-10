@@ -32,8 +32,8 @@ function SpotList({ tech, navigation }){
 
     }, []);
 
-    function handleNavigate(){
-        navigation.navigate('Book');
+    function handleNavigate(id){
+        navigation.navigate('Book', { id });
     }
     
     return (
@@ -51,7 +51,7 @@ function SpotList({ tech, navigation }){
                         <Image style={styles.thumbnail} source={{ uri: item.thumbnail_url }} />
                         <Text style={styles.company}>{item.company}</Text>
                         <Text style={styles.price}>{item.price ? `R$${item.price}/dia` : `GRATUITO`}</Text>
-                        <TouchableOpacity style={styles.button} onPress={handleNavigate}>
+                        <TouchableOpacity style={styles.button} onPress={() => handleNavigate(item._id)}>
                             <Text style={styles.buttonText}>Solicitar Reservar</Text>
                         </TouchableOpacity>
                     </View>
