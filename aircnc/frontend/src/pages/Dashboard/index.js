@@ -39,6 +39,18 @@ function Dashboard(){
 
     }, []);
 
+    async function handleAccept(booking_id){
+        await api.post(`/bookings/${booking_id}/approvals`)
+        
+        setRequests(requests.filter(request => request._id !== booking_id));
+    }
+
+    async function handleRejection(booking_id){
+        await api.post(`/bookings/${booking_id}/rejections`)
+    
+        setRequests(requests.filter(request => request._id !== booking_id));
+    }
+
     return (
         <>
             <ul className="notifications" >
@@ -47,8 +59,8 @@ function Dashboard(){
                         <p>
                             <strong>{request.user.email}</strong> está solicitando uma reserva em  <strong>{request.spot.company}</strong> para a data: <strong>{request.date}</strong>
                         </p>
-                        <button className="accept">ACEITAR</button>
-                        <button className="refuse">REJEITAR</button>
+                        <button onClick={() => handleAccept(request._id)} className="accept">ACEITAR</button>
+                        <button onClick={() => handleRejection(request._id)} className="refuse">REJEITAR</button>
                     </li>
                 ))}
             </ul>
