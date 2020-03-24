@@ -23,7 +23,26 @@ module.exports = {
   },
 
   async show (req, res) {
-    const ongs = await connection('incidents').select('*');
+    const {page = 1} = req.query;
+    
+    const count = await connection('incidents')
+      .count();
+
+    // header with the count of incidents in total
+    res.header('x-Total-Count', count[0]['count(*)']);
+
+    const ongs = await connection('incidents')
+      .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
+      .limit(5)
+      .offset((page - 1) * 5)
+      .select([
+        'incidents.*', 
+        'ongs.name', 
+        'ongs.email', 
+        'ongs.whatsapp', 
+        'ongs.city', 
+        'ongs.uf'
+      ]);
 
     return res.json(ongs);
   },
