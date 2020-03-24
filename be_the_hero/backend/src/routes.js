@@ -14,5 +14,6 @@ routes.get('/ongs', OngsControllers.show);
 
 //Routes to incidents
 routes.post('/incidents', IncidentsControllers.create);
+routes.get('/incidents', IncidentsControllers.show);
 
 module.exports = routes;

@@ -3,7 +3,7 @@
 const connection = require('../database');
 
 module.exports = {
-  async create(req, res) {
+  async create (req, res) {
     const {
       title,
       description,
@@ -20,5 +20,11 @@ module.exports = {
     }) 
 
     return res.json({ id: incident[0] });
+  },
+
+  async show (req, res) {
+    const ongs = await connection('incidents').select('*');
+
+    return res.json(ongs);
   }
 }
