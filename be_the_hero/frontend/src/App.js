@@ -1,10 +1,12 @@
 import React from 'react';
 
-import Header from './Header';
+import './global.css';
+
+import Router from './routes';
 
 function App() {
   return (
-    <Header />
+    <Router />
   );
 }
 
