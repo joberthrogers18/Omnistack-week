@@ -13,8 +13,12 @@ body {
   -webkit-font-smoothing: antialiased; 
 }
 
-inputs, button, textarea {
+input, button, textarea {
   font: 400 18px Roboto, sans-serif;
+}
+
+input::placeholder {
+  color: #333;
 }
 
 button {
@@ -50,3 +54,24 @@ form input {
 .button:hover {
   filter: brightness(90%);
 }
+
+
+.backlink {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  color: #41414D;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2; 
+}
+
+.backlink svg {
+  margin-right: 8px;
+} 
+
+.backlink:hover {
+  opacity: 0.8;
+} 
+
