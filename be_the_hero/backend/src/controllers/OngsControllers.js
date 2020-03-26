@@ -15,14 +15,18 @@ module.exports = {
     // Generate 4 bytes heaxadecimals
     const id = crypto.randomBytes(4).toString('HEX');
 
-    await connection('ongs').insert({
-      id,
-      name,
-      email,
-      whatsapp,
-      city,
-      uf,
-    });
+    try {
+      await connection('ongs').insert({
+        id,
+        name,
+        email,
+        whatsapp,
+        city,
+        uf,
+      });
+    } catch (e) {
+      res.json(e);
+    }
 
     return res.json({ id });
   },
