@@ -21,7 +21,6 @@ export default function Incident() {
     const response = await api.get('/incidents');
 
     setIncidents(response.data);
-    console.log(response);
     setTotal(response.headers['x-total-count']);
   }
 
@@ -31,8 +30,10 @@ export default function Incident() {
 
   const navigation = useNavigation();
 
-  function navigationToDetail() {
-    navigation.navigate('Detail')
+  function navigationToDetail(incident) {
+    navigation.navigate('Detail', {
+      incident
+    });
   }
 
   return (
@@ -74,7 +75,7 @@ export default function Incident() {
 
             <TouchableOpacity
               style={styles.detailsButton}
-              onPress={navigationToDetail}
+              onPress={() => navigationToDetail(incident)}
             >
               <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
               <Feather
