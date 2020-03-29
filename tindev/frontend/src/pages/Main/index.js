@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import  { Link } from 'react-router-dom';
 import './style.css';
+import io from 'socket.io-client';
 
 import api from '../../services/api';
 
@@ -28,6 +29,11 @@ const Main = ({ match }) => {
 
         loadUsers();
     }, [match.params.id])
+
+    // observ the socket
+    useEffect(() => {
+        const socket = io('http://localhost:3333');
+    }, [match.params.id]);
 
     const renderDevs = () => {
 

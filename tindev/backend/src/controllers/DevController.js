@@ -26,7 +26,6 @@ module.exports = {
         const userExists = await Dev.findOne({ user: username });
 
         if(userExists) {
-            console.log(userExists)
             return res.json(userExists);
         }
 
