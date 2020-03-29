@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-
 import LogoImg from '../assets/logo.png';
 
 import styles from './styles';
